@@ -6,16 +6,26 @@ import { fileURLToPath } from "url";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 3000;
-const day = new Date();
-var userDate = day.getDay();
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+  const day = new Date();
+  const userDate = day.getDay();
+
+  let type = "weekday";
+  let adv = "work hard";
+
   if (userDate == 0 || userDate == 6) {
-    res.send("its the wknd");
-  } else if (userDate != 0 || userDate != 6) {
-    res.send("its the wkday");
+    // res.send("its the wknd");
+    type = "weekend";
+    adv = "have fun";
   }
+  res.render("index.ejs", { name: type, toDo: adv });
+
+  //    else if (userDate != 0 || userDate != 6) {
+  //     // res.send("its the wkday");
+  //     res.render("index.ejs", { name: "weekday", toDo: "work hard" });
+  //   }
 });
 
 app.listen(port, () => {
